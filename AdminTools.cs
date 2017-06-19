@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CitizenFX;
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
+using CitizenFX.Core.UI;
 
 namespace AdminTools
 {
@@ -15,7 +16,7 @@ namespace AdminTools
         {
             get
             {
-                return (Entity.FromHandle(LocalPlayer.Handle));
+                return (Entity.FromHandle(Game.PlayerPed.Handle));
             }
             private set { }
         }
@@ -34,17 +35,21 @@ namespace AdminTools
 
         void ToggleAdminTool()
         {
+            adminToolState = !adminToolState;
+
             if (adminToolState)
             {
                 LocalPlayer.IsInvincible = true;
-                LocalPlayer.IgnoredByEveryone = true;
-                LocalEntity.IsVisible = true;
+                //LocalPlayer.IgnoredByEveryone = true;
+                LocalEntity.IsVisible = false;
+                Screen.ShowNotification("On");
             }
             else
             {
                 LocalPlayer.IsInvincible = false;
-                LocalPlayer.IgnoredByEveryone = false;
-                LocalEntity.IsVisible = false;
+                //LocalPlayer.IgnoredByEveryone = false;
+                LocalEntity.IsVisible = true;
+                Screen.ShowNotification("Off");
             }
         }
     }
